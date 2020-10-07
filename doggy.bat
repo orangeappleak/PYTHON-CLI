@@ -1,0 +1,1 @@
+py D:\projects\PyThOn-CLI\PYTHON-CLI\init.py %1 %2 %3 %4 %5
