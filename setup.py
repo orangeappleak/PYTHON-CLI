@@ -6,6 +6,7 @@ setup(
     py_modules=['doggy'],
     install_requires=[
         'Click',
+        'colorama'
     ],
     entry_points='''
         [console_scripts]
