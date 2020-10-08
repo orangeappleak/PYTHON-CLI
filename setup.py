@@ -1,14 +1,14 @@
 from setuptools import setup
 
 setup(
-    name='init',
-    version='0.1',
-    py_modules=['init'],
+    name='doggy',
+    version='0.2',
+    py_modules=['doggy'],
     install_requires=[
         'Click',
     ],
     entry_points='''
         [console_scripts]
-        init=init:hello
+        doggy=doggy:hello
     ''',
 )
