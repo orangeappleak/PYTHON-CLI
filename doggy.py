@@ -1,36 +1,44 @@
 import click
 import time
 import random
+from passlib.context import CryptContext
+from commands.uc import pow_sub_com
 
-@click.group(invoke_without_command=True)
-@click.option('--username','-u', default=False)
+pwd_context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=1000
+)
+
+@click.group(name="Basic_utilities",help="DOG͎̾GͧY͇",invoke_without_command=True)
+@click.option("--username","-u",default="no username entered")
+@click.option("--password",prompt=True,confirmation_prompt=True)
 @click.pass_context
-def cli(ctx,username):
-    ctx.ensure_object(dict)
-    ctx.obj['USER_NAME'] = username
-    return
+def main_commands(ctx,username,password):
+    click.echo("the entered username is %s" % username)
+    with click.progressbar([1, 2, 3]) as bar:
+        for x in bar:
+            time.sleep(x)
+    click.echo('Encrypted password to %s' % pwd_context.encrypt(password))
 
-@cli.command(help="says hello n numer of times and also proves your dumb")
-@click.option("--count","-c",default=5,help="says hello n times")
-def hel(count):
-    for x in range(count):
-        click.echo("Hello DUMBO")
+    pass
 
-@cli.command(short_help = "proves that you are dumb")
-@click.argument('name',default="you are an idiot")
-def name(name):
-    click.secho("Hello idiot,",fg="white",bg="black")
-    time.sleep(1.2)
-    click.secho("OH shit my bad.",fg="white",bg="black")
+@main_commands.command(name="info",help="Provides basic info about the CLI application")
+def info():
     time.sleep(1)
-    if name == "you are an idiot":
-        click.secho("give me your name to greet IDIOT",fg="white",bg="black")
-    else:
-        click.secho("Hello %s" % name, fg="red",bg="white")
+    click.secho("HEY THERE,",fg="red")
+    time.sleep(2)
+    click.secho("I am doggy your coding companion,",fg="magenta",bg="white")
+    time.sleep(1.5)
+    click.secho("You can make your coding life easier \b and simpler by making use of my powerful commands. LIKEEEEEE....",fg="magenta",bg="white")
+    time.sleep(1.3)
+    click.secho("----> You can create GITHUB repos or push changes to your GITHUB repo in just one command",fg="black",bg="magenta")
+    time.sleep(1.5)
+    click.secho("----> You can set shortcuts for all your workspaces as well as your code editors, so you dont have to go through all the clicking and searching for your folders.",fg="red",bg="white")
+    time.sleep(1.5)
+    click.secho("----> You can also make diff profiles based on your workflow and set passwords for each profile",fg="white",bg="red")
+    time.sleep(2)
+    click.secho("AND MUCH MUCH MORE, SO WHAT ARE YOU WAITING FOR GET CODING.....",fg="magenta")
+    time.sleep(2)
 
-@cli.command()
-@click.pass_context
-def info(ctx):
-    print(ctx.obj)
-    print(ctx.obj['USER_NAME'])
-    
+main_commands.add_command(pow_sub_com)
