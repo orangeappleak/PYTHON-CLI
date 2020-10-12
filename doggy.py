@@ -1,27 +1,15 @@
 import click
 import time
 import random
-from passlib.context import CryptContext
-from commands.uc import pow_sub_com
-
-pwd_context = CryptContext(
-        schemes=["pbkdf2_sha256"],
-        default="pbkdf2_sha256",
-        pbkdf2_sha256__default_rounds=1000
-)
+from commands.uc import user_commands
+import json
 
 @click.group(name="Basic_utilities",help="DOG͎̾GͧY͇",invoke_without_command=True)
-@click.option("--username","-u",default="no username entered")
-@click.option("--password",prompt=True,confirmation_prompt=True)
+@click.option("--userprof","-up")
 @click.pass_context
-def main_commands(ctx,username,password):
-    click.echo("the entered username is %s" % username)
-    with click.progressbar([1, 2, 3]) as bar:
-        for x in bar:
-            time.sleep(x)
-    click.echo('Encrypted password to %s' % pwd_context.encrypt(password))
-
+def main_commands(ctx,userprof):
     pass
+    
 
 @main_commands.command(name="info",help="Provides basic info about the CLI application")
 def info():
@@ -41,4 +29,10 @@ def info():
     click.secho("AND MUCH MUCH MORE, SO WHAT ARE YOU WAITING FOR GET CODING.....",fg="magenta")
     time.sleep(2)
 
-main_commands.add_command(pow_sub_com)
+@main_commands.command(name="user",help="Displays the current user profile chosen")
+def user():
+    f = open("user_profiles.txt","r")
+    click.echo("The current userprof is %s" % f.read())
+    f.close()
+
+main_commands.add_command(user_commands)

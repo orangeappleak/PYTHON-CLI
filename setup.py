@@ -7,7 +7,7 @@ setup(
     install_requires=[
         'Click',
         'colorama',
-        'passlib'
+        'json'
     ],
     entry_points={
         'console_scripts': [
