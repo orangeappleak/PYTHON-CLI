@@ -2,12 +2,12 @@
     "user_profiles": [
         {
             "current_prof": "False",
-            "profile_name": "redmangoapple",
+            "profile_name": "redmango",
             "username": "karthik"
         },
         {
-            "current_prof": "False",
-            "profile_name": "indexkiller",
+            "current_prof": "True",
+            "profile_name": "redmangoapple",
             "username": "karthik"
         }
     ]

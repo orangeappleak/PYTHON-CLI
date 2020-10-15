@@ -1,7 +1,7 @@
 import click
 import json
 import time
-from file_operations import create_profile
+from file_operations import create_profile,display_profiles
 import colorama
 
 @click.group(name="usersett",help="Manage your userprofile settings or add new profiles",invoke_without_command=True)
@@ -19,6 +19,7 @@ def user_commands(ctx,profilename,username):
 @click.argument('username')
 def newProfile(name,username):
     create_profile(name,username)
+    
 
 @user_commands.command(name="deleteprofiles",help="deletes all the userdata")
 def deleteprofiles():
@@ -29,7 +30,9 @@ def deleteprofiles():
                 time.sleep(x)
         click.secho("All the userprofiles have been burnt to ashes, HA HA HA",fg="magenta",bg="yellow")
 
-
+@user_commands.command(name="display",help="Displays all the user profiles")
+def display():
+    display_profiles()
 
 
 

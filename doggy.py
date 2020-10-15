@@ -2,12 +2,24 @@ import click
 import time
 import random
 from commands.uc import user_commands
+from file_operations import create_profile,set_active_profile,get_current_profile,display_profiles
 import json
 
+class active_user(object):
+    def __init__(self,user_profile):
+        self.user_profile = user_profile
+
 @click.group(name="Basic_utilities",help="DOG͎̾GͧY͇",invoke_without_command=True)
-@click.option("--userprof","-up")
+@click.option("--userprof","-up",help="set the active user profile")
+@click.option("--username","-un")
+@click.option("--profilename","-pn")
 @click.pass_context
-def main_commands(ctx,userprof):
+def main_commands(ctx,userprof,username,profilename):
+    ctx.obj = active_user(userprof)
+    if(userprof != None):
+        set_active_profile(userprof)
+    if(username and profilename != None):
+        create_profile(profilename,username)
     pass
     
 
@@ -29,10 +41,19 @@ def info():
     click.secho("AND MUCH MUCH MORE, SO WHAT ARE YOU WAITING FOR GET CODING.....",fg="magenta")
     time.sleep(2)
 
-@main_commands.command(name="user",help="Displays the current user profile chosen")
-def user():
-    f = open("user_profiles.txt","r")
-    click.echo("The current userprof is %s" % f.read())
-    f.close()
+@main_commands.command(name="currprof",help="Displays the current user profile chosen")
+@click.pass_obj
+def currprof(ctx):
+    get_current_profile()
+
+@main_commands.command(name="display",help="Displays all the user profiles")
+def display():
+    try:
+        display_profiles()
+    except:
+        print("There are no user profiles available DUMBO, add some users and then ill display them.")
+
+
+
 
 main_commands.add_command(user_commands)

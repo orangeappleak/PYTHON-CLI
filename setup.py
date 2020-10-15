@@ -7,7 +7,6 @@ setup(
     install_requires=[
         'Click',
         'colorama',
-        'json'
     ],
     entry_points={
         'console_scripts': [
