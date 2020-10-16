@@ -17,7 +17,10 @@ def create_profile(name,username):
                             {
                                 "username": username,
                                 "profile_name": name,
-                                "current_prof": "False"
+                                "current_prof": "False",
+                                "file_shortcuts":[
+                                    
+                                ]
                             }
                         ]
                     }
@@ -29,7 +32,8 @@ def create_profile(name,username):
                 new_user_profile = {
                     "username": username,
                     "profile_name": name,
-                    "current_prof": "False"
+                    "current_prof": "False",
+                    "file_shortcuts":[]
                 }
                 with open(filename,"r") as infile:
                     data = json.load(infile)
@@ -76,6 +80,9 @@ def deactivate_prof():
                 userprofile['current_prof'] = "False"
             json.dump(data,outfile,indent=4,sort_keys = True)
 
+def deleteallprofiles():
+    open(filename,"w").close()
+
 def get_current_profile():
     with open(filename,"r") as infile:
         data = json.load(infile)
@@ -88,3 +95,20 @@ def display_profiles():
         data = json.load(infile)
         click.secho("The username is the name of the person who created the user profile",fg="green",bg="blue")
         click.secho(json.dumps(data['user_profiles'],indent=2,sort_keys=False),fg='yellow')
+
+def add_shortcut(path,shortcut,userprofile):
+    with open(filename,"r") as infile:
+        data = json.load(infile)
+        for up in data['user_profiles']:
+            if(userprofile == up['profile_name']):
+                with open(filename,"w") as outfile:
+                    new_file_shortcut = {
+                        "shortcut": shortcut,
+                        "path": path
+                    }
+                    up['file_shortcuts'].append(new_file_shortcut)
+                    json.dump(data,outfile,sort_keys=False) 
+                    click.secho(json.dumps(up['file_shortcuts'],indent=2,sort_keys=False),fg='yellow')    
+                break 
+        
+    

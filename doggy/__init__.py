@@ -53,4 +53,8 @@ def display():
     except:
         print("There are no user profiles available DUMBO, add some users and then ill display them.")
 
+@main_commands.command(name="creator", help="opens the blog of the great creator of DOG͎̾GͧY͇")
+def creator():
+    click.launch("https://orangeappleak.github.io/")
+
 main_commands.add_command(user_commands)
