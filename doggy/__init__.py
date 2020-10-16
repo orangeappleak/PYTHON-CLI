@@ -1,7 +1,7 @@
 import click
 import time
 import random
-from commands.uc import user_commands
+from doggy.commands.uc import user_commands
 from doggy.file_operations import create_profile,set_active_profile,get_current_profile,display_profiles
 import json
 
