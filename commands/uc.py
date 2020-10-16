@@ -1,7 +1,7 @@
 import click
 import json
 import time
-from file_operations import create_profile,display_profiles
+from doggy.file_operations import create_profile,display_profiles
 import colorama
 
 @click.group(name="usersett",help="Manage your userprofile settings or add new profiles",invoke_without_command=True)

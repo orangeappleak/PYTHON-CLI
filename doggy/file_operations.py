@@ -2,7 +2,7 @@ import os
 import json
 import click
 
-# pypi-AgEIcHlwaS5vcmcCJGQ0MTJlZjYwLWE3MTEtNDJlMi05YWZiLWZhNmM3MDRjNjQ2MQACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYgCBOAVFwL7x_6M6vJ-yD3hEhjWoKyQbb0z7aKZVkykAU
+
 absolute_path = os.path.dirname(os.path.abspath(__file__))
 
 filename = absolute_path + "/user_profiles.json"

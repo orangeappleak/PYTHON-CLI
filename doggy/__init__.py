@@ -2,7 +2,7 @@ import click
 import time
 import random
 from commands.uc import user_commands
-from file_operations import create_profile,set_active_profile,get_current_profile,display_profiles
+from doggy.file_operations import create_profile,set_active_profile,get_current_profile,display_profiles
 import json
 
 class active_user(object):
@@ -52,8 +52,5 @@ def display():
         display_profiles()
     except:
         print("There are no user profiles available DUMBO, add some users and then ill display them.")
-
-
-
 
 main_commands.add_command(user_commands)

@@ -1,9 +1,11 @@
 from setuptools import setup
+import setuptools
 
 setup(
     name='doggy',
-    version='0.2.4',
+    version='0.3.3',
     py_modules=['doggy'],
+    packages=setuptools.find_packages(include=["commands"]),
     install_requires=[
         'Click',
         'colorama',
