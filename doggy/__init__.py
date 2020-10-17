@@ -2,7 +2,7 @@ import click
 import time
 import random
 from doggy.commands.uc import user_commands
-from doggy.file_operations import create_profile,set_active_profile,get_current_profile,display_profiles
+from doggy.file_operations import create_profile,set_active_profile,get_current_profile,display_profiles,open_shortcut
 import json
 
 class active_user(object):
@@ -10,16 +10,19 @@ class active_user(object):
         self.user_profile = user_profile
 
 @click.group(name="Basic_utilities",help="DOG͎̾GͧY͇",invoke_without_command=True)
-@click.option("--userprof","-up",help="set the active user profile")
-@click.option("--username","-un")
-@click.option("--profilename","-pn")
+@click.option("--actprof","-up",help="set the active user profile")
+@click.option("--username","-un",help="use this in combination with --profilename/-pn to create a new profile")
+@click.option("--profilename","-pn",help="use this in combination with the --username/-un option to create a new profile.")
+@click.option("--shortcut","-sc",help="opens the specified shortcut for the user profile")
 @click.pass_context
-def main_commands(ctx,userprof,username,profilename):
-    ctx.obj = active_user(userprof)
-    if(userprof != None):
-        set_active_profile(userprof)
+def main_commands(ctx,actprof,username,profilename,shortcut):
+    ctx.obj = active_user(actprof)
+    if(actprof != None):
+        set_active_profile(actprof)
     if(username and profilename != None):
         create_profile(profilename,username)
+    if(shortcut != None):
+        open_shortcut(shortcut)
     pass
     
 
@@ -44,7 +47,8 @@ def info():
 @main_commands.command(name="currprof",help="Displays the current user profile chosen")
 @click.pass_obj
 def currprof(ctx):
-    get_current_profile()
+    profile_name = get_current_profile()
+    click.secho("The current profile is %s" % profile_name)
 
 @main_commands.command(name="display",help="Displays all the user profiles")
 def display():

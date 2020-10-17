@@ -40,7 +40,7 @@ def display():
 @click.option('--userprofile','-up',required=True,help="the userprofile to add the shortcuts",prompt="the userprofile to add the shortcuts")
 def shortcuts(shortcut, path,userprofile):
     click.secho("shortcut is:"+shortcut+"\n path is "+path,fg="red",bg="yellow")
-    add_shortcut(shortcut, path,userprofile)
+    add_shortcut(path, shortcut, userprofile)
 
 
 

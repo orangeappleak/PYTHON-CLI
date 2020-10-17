@@ -6,7 +6,8 @@ with open("README.md", "r") as fh:
 
 setup(
     name='doggy',
-    version='1.0.1',
+    version='1.0.2',
+    homepage="https://github.com/orangeappleak/PYTHON-CLI",
     url="https://github.com/orangeappleak/PYTHON-CLI",
     author="A.Karthik A.K.A REDMANGOAPPLE",
     author_email="redmaniac0510@gmail.com",

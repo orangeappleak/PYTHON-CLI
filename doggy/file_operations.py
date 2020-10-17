@@ -88,7 +88,7 @@ def get_current_profile():
         data = json.load(infile)
         for userprofile in data['user_profiles']:
             if(userprofile['current_prof'] == "True"):
-                click.secho("The current user profile is " + userprofile['profile_name'])
+                return userprofile['profile_name']
 
 def display_profiles():
     with open(filename,"r") as infile:
@@ -96,19 +96,41 @@ def display_profiles():
         click.secho("The username is the name of the person who created the user profile",fg="green",bg="blue")
         click.secho(json.dumps(data['user_profiles'],indent=2,sort_keys=False),fg='yellow')
 
-def add_shortcut(path,shortcut,userprofile):
+def check_shortcut(shortcut,user_profile):
     with open(filename,"r") as infile:
         data = json.load(infile)
         for up in data['user_profiles']:
-            if(userprofile == up['profile_name']):
-                with open(filename,"w") as outfile:
-                    new_file_shortcut = {
-                        "shortcut": shortcut,
-                        "path": path
-                    }
-                    up['file_shortcuts'].append(new_file_shortcut)
-                    json.dump(data,outfile,sort_keys=False) 
-                    click.secho(json.dumps(up['file_shortcuts'],indent=2,sort_keys=False),fg='yellow')    
-                break 
-        
-    
+            if user_profile == up['profile_name']:
+                for sc in up['file_shortcuts']:
+                    if shortcut == sc['shortcut']:
+                        click.secho("The shortcut already exists in this profile",fg="green")
+                        return True
+    click.secho("file shortcut does not exist,creating one.....")
+    return False
+
+def add_shortcut(path,shortcut,userprofile):
+    if(not check_shortcut(shortcut,userprofile)):
+        with open(filename,"r") as infile:
+            data = json.load(infile)
+            for up in data['user_profiles']:
+                if(userprofile == up['profile_name']):
+                    with open(filename,"w") as outfile:
+                        new_file_shortcut = {
+                            "shortcut": shortcut,
+                            "path": path
+                        }
+                        up['file_shortcuts'].append(new_file_shortcut)
+                        json.dump(data,outfile,indent=4,sort_keys=False) 
+                        click.secho(json.dumps(up['file_shortcuts'],indent=2,sort_keys=False),fg='yellow')    
+                    break 
+            
+def open_shortcut(sc):
+    profile_name = get_current_profile()
+    with open(filename,"r") as infile:
+        data = json.load(infile)
+        for up in data['user_profiles']:
+            if(up['profile_name'] == profile_name):
+                for shortcut in up['file_shortcuts']:
+                    if(shortcut['shortcut'] == sc):
+                        print(shortcut['path'])
+                        click.launch(shortcut['path'])
